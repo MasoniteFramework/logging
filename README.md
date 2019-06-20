@@ -44,27 +44,36 @@ DRIVERS = {
     }
 }
 ```
+# Channels 
+
+Masonite logging has the concept of channels which are similiar to database connections. You can have several channels and each channel can have it's own driver. For example you may have a `production` and `beta` channel.
 
 # Stack Driver
 
 You can also use a stack driver that will take several drivers. This will be useful if you want to log to several drivers like the local `disk` and `sentry` driver.
 
 ```python
-DRIVER = 'sentry'
+DRIVER = 'stack'
 
 DRIVERS = {
-    'stack': {
-        'drivers': [
-            'disk', 
-            'sentry'
-        ]
-    }
-    'sentry': {
-        'client': '',
-        'secret': '',
-    }
+    'channels': {
+        'stack': {
+            'driver': 'stack',
+            'channels': [
+                'disk', 
+                'sentry'
+            ]
+        }
+        'sentry': {
+            'driver': 'sentry',
+            'client': '',
+            'secret': '',
+        }
+    },
 }
 ```
+
+Channel names can be whatever you like them to be.
 
 Now when an exception or message is logged it will log to both the disk and the sentry driver.
 
@@ -81,7 +90,7 @@ def show(self, logging: Logging):
     logging.message('hello world', severity='debug')
 ```
 
-You have a few options for methods: `debug`, `warning`, `fatal`, `info`. You can also use these methods directly:
+You have a few options for methods: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`, and `debug`. You can also use these methods directly:
 
 ```python
 from masonite.logging import Logging
@@ -90,9 +99,22 @@ def show(self, logging: Logging):
     logging.debug('hello world')
     logging.warning('hello world')
     logging.info('hello world')
-    logging.fatal('hello world')
+    logging.emergency('hello world')
 ```
 
 ## Logging exceptions
 
 Whenever an exception is encountered, Masonite will send the exeption to a logger's `exception` method. This will then send the information to the system that requires it.
+
+You can optionally send this manually if you want:
+
+```python
+from masonite.logging import Logging
+
+def show(self, logging: Logging):
+    try:
+        some_code()
+    except Exception as e:
+        logging.exception(e)
+        raise e
+```
