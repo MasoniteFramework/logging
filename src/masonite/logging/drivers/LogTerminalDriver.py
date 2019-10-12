@@ -8,11 +8,9 @@ from .BaseDriver import BaseDriver
 
 class LogTerminalDriver(BaseDriver, HasColoredCommands):
 
-    def __init__(self, path=None):
-        # self.level = config('logging.channels.single.')
-        # self.level = logging.DEBUG
-        print(path)
-        self.path = path
+    def __init__(self, *args, **kwargs):
+        self.max_level=kwargs.get('max_level', None)
+        self.bubble=kwargs.get('bubble', None)
 
     def emergency(self, message):
         pass
@@ -37,6 +35,9 @@ class LogTerminalDriver(BaseDriver, HasColoredCommands):
 
     def debug(self, message):
         # import pendulum
+        if not self.should_run('debug', self.max_level):
+            return
+
         super().warning('{time} - {level} - {message}'.format(
             time=self.get_time().to_datetime_string(),
             level='DEBUG',

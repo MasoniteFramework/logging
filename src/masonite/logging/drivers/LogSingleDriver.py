@@ -6,11 +6,10 @@ from .BaseDriver import BaseDriver
 
 class LogSingleDriver(BaseDriver):
 
-    def __init__(self, path=None):
+    def __init__(self, *args, **kwargs):
         # self.level = config('logging.channels.single.')
         self.level = logging.DEBUG
-        print(path)
-        self.path = path
+        self.path = kwargs.get('path')
 
     def emergency(self, message):
         pass
