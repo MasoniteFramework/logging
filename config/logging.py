@@ -11,5 +11,10 @@ CHANNELS = {
         'level': 'debug',
         'bubble': True,
         'path': 'storage/logs'
-    }
+    },
+    'terminal': {
+        'driver': 'terminal',
+        'level': 'debug',
+        'bubble': True,
+    },
 }

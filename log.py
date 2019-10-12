@@ -1,4 +1,4 @@
-from src.masonite.logging.channels import DailyChannel
+from src.masonite.logging.channels import TerminalChannel
 
-logger = DailyChannel()
+logger = TerminalChannel()
 print(logger.debug('This is a message'))
