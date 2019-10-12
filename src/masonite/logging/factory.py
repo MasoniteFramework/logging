@@ -1,10 +1,11 @@
-from .drivers import LogSingleDriver, LogTerminalDriver
+from .drivers import LogSingleDriver, LogTerminalDriver, LogSlackDriver
 
 class DriverFactory:
 
     drivers = {
         'single': LogSingleDriver,
         'daily': LogSingleDriver,
+        'slack': LogSlackDriver,
         'terminal': LogTerminalDriver
     }
 

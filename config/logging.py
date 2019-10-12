@@ -1,3 +1,8 @@
+from masonite import env
+from masonite.environment import LoadEnvironment
+
+LoadEnvironment()
+
 DEFAULT='single'
 
 CHANNELS = {
@@ -19,4 +24,11 @@ CHANNELS = {
         'level': 'info',
         # 'bubble': True,
     },
+    'slack': {
+        'driver': 'slack',
+        'channel': '#bot',
+        'emoji': ':warning:',
+        'username': 'Logging Bot',
+        'token': env('SLACK_TOKEN'),
+    }
 }
