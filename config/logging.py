@@ -14,7 +14,7 @@ CHANNELS = {
     },
     'stack': {
         'driver': 'stack',
-        'channels': ['single', 'slack', 'daily']
+        'channels': ['single', 'daily', 'slack', 'terminal']
     },
     'daily': {
         'driver': 'daily',
