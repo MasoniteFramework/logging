@@ -1,4 +1,4 @@
-from src.masonite.logging.channels import SlackChannel
+from src.masonite.logging.channels import StackChannel
 
-logger = SlackChannel()
-print(logger.debug('This is a message'))
+logger = StackChannel()
+print(logger.notice('This is a message'))

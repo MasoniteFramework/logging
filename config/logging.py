@@ -10,19 +10,20 @@ CHANNELS = {
     'single': {
         'driver': 'single',
         'level': 'debug',
-        # 'bubble': True,
         'path': 'storage/logs/single.log'
+    },
+    'stack': {
+        'driver': 'stack',
+        'channels': ['single', 'slack', 'daily']
     },
     'daily': {
         'driver': 'daily',
         'level': 'debug',
-        # 'bubble': True,
         'path': 'storage/logs'
     },
     'terminal': {
         'driver': 'terminal',
         'level': 'info',
-        # 'bubble': True,
     },
     'slack': {
         'driver': 'slack',
@@ -30,5 +31,11 @@ CHANNELS = {
         'emoji': ':warning:',
         'username': 'Logging Bot',
         'token': env('SLACK_TOKEN'),
+        'level': 'debug'
+    },
+    'syslog': {
+        'driver': 'syslog',
+        'path': '/var/run/syslog',
+        'level': 'debug'
     }
 }

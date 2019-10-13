@@ -1,4 +1,3 @@
-from masonite.helpers import config
 import os
 from .BaseDriver import BaseDriver
 import requests
@@ -12,45 +11,65 @@ class LogSlackDriver(BaseDriver):
         self.emoji = kwargs.get('emoji', ':warning:')
         self.username = kwargs.get('username')
 
-    def emergency(self, message):
-        pass
-
-    def alert(self, message):
-        pass
-
-    def critical(self, message):
-        pass
-
-    def error(self, message):
-        pass
-
-    def warning(self, message):
-        pass
-
-    def notice(self, message):
-        pass
-
-    def info(self, message):
-        pass
-
-    def debug(self, message):
-        message = "{time} - {level} - {message}".format(
-            time=self.get_time().to_date_string(),
-            level='DEBUG',
-            message=message   
+    def emergency(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'EMERGENCY')
         )
 
+    def alert(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'ALERT')
+        )
+
+    def critical(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'CRITICAL')
+        )
+
+    def error(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'ERROR')
+        )
+
+    def warning(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'WARNING')
+        )
+
+    def notice(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'NOTICE')
+        )
+
+    def info(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'INFO')
+        )
+
+    def debug(self, message, *args, **kwargs):
+        self.send(
+            self.get_format(message, 'DEBUG')
+        )
+
+    def get_format(self, message, level):
+        return "{time} - {level} - {message}".format(
+            time=self.get_time().to_datetime_string(),
+            message=message,
+            level=level
+        )
+
+    def send(self, message):
         requests.post(self.slack_url, {
-                    'token': self.token,
-                    'channel': self.find_channel(self.channel),
-                    'text': message,
-                    'username': self.username,
-                    'icon_emoji': self.emoji,
-                    'as_user': False,
-                    'reply_broadcast': True,
-                    'unfurl_links': True,
-                    'unfurl_media': True,
-                })
+            'token': self.token,
+            'channel': self.find_channel(self.channel),
+            'text': message,
+            'username': self.username,
+            'icon_emoji': self.emoji,
+            'as_user': False,
+            'reply_broadcast': True,
+            'unfurl_links': True,
+            'unfurl_media': True,
+        })
 
     def find_channel(self, name):
         """Calls the Slack API to find the channel name. 

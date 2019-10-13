@@ -1,41 +1,69 @@
-# from logging import Logger
 import logging
-from masonite.helpers import config
 import os
 from .BaseDriver import BaseDriver
 
 class LogSingleDriver(BaseDriver):
 
     def __init__(self, *args, **kwargs):
-        # self.level = config('logging.channels.single.')
-        self.level = logging.DEBUG
+        self.max_level = kwargs.get('max_level')
         self.path = kwargs.get('path')
+        self.log = logging.getLogger('root')
 
-    def emergency(self, message):
-        pass
+        handler = logging.FileHandler(self.path, 'a')
+        formatter = logging.Formatter('{} - %(levelname)s - %(message)s'.format(self.get_time().to_datetime_string()))
+        
+        handler.setFormatter(formatter)
+        self.log.addHandler(handler)
 
-    def alert(self, message):
-        pass
+    def change_format(self, changed_format):
+        for hdlr in self.log.handlers[:]:  # remove all old handlers
+            self.log.removeHandler(hdlr)
 
-    def critical(self, message):
-        pass
+        handler = logging.FileHandler(self.path, 'a')
+        formatter = logging.Formatter(changed_format)
+        
+        handler.setFormatter(formatter)
 
-    def error(self, message):
-        pass
+        self.log.addHandler(handler)
 
-    def warning(self, message):
-        pass
+    def emergency(self, message, *args, **kwargs):
+        self.log.setLevel(logging.CRITICAL)
+        self.change_format('{} - {} - %(message)s'.format(
+                self.get_time().to_datetime_string(),
+                'EMERGENCY'))
+        return self.log.critical(message)
 
-    def notice(self, message):
-        pass
+    def alert(self, message, *args, **kwargs):
+        self.log.setLevel(logging.CRITICAL)
+        self.change_format('{} - {} - %(message)s'.format(
+                self.get_time().to_datetime_string(),
+                'ALERT'))
+        return self.log.critical(message)
 
-    def info(self, message):
-        pass
+    def critical(self, message, *args, **kwargs):
+        self.log.setLevel(logging.CRITICAL)
+        return self.log.critical(message)
 
-    def debug(self, message):
-        # import pendulum
-        logging.basicConfig(
-            level=self.level, 
-            filename=os.path.join(self.path),
-            format='{} - %(levelname)s - %(message)s'.format(self.get_time().to_datetime_string()))
-        return logging.debug(message)
+    def error(self, message, *args, **kwargs):
+        self.log.setLevel(logging.ERROR)
+        return self.log.error(message)
+
+    def warning(self, message, *args, **kwargs):
+        self.log.setLevel(logging.WARNING)
+        return self.log.warning(message)
+
+    def notice(self, message, *args, **kwargs):
+        self.log.setLevel(logging.INFO)
+        self.change_format('{} - {} - %(message)s'.format(
+                self.get_time().to_datetime_string(),
+                'NOTICE'))
+        return self.log.info(message)
+
+    def info(self, message, *args, **kwargs):
+        self.log.setLevel(logging.INFO)
+        return self.log.info(message)
+
+    def debug(self, message, *args, **kwargs):
+        self.log.setLevel(logging.DEBUG)
+        return self.log.debug(message) 
+    

@@ -3,14 +3,23 @@ from masonite.helpers import config
 from masonite.helpers.filesystem import make_directory
 import os
 import pendulum
+from .BaseChannel import BaseChannel
 
-class SingleChannel:
+class SingleChannel(BaseChannel):
 
     def __init__(self, driver=None, path=None):
         path = path or config('logging.channels.single.path')
         make_directory(path)
-        print('path is', path)
-        self.driver = DriverFactory.make(driver or config('logging.channels.single.driver'))(path=path)
+        self.max_level = config('logging.channels.single.level')
+        self.driver = DriverFactory.make(driver or config('logging.channels.single.driver'))(path=path, max_level=self.max_level)
 
-    def debug(self, message, *args, **kwargs):
-        return self.driver.debug(message, *args, **kwargs)
+"""
+        'emergency',
+        'alert',
+        'critical',
+        'error',
+        'warning',
+        'notice',
+        'info',
+        'debug',
+"""

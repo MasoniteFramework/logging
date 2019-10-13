@@ -9,37 +9,51 @@ from .BaseDriver import BaseDriver
 class LogTerminalDriver(BaseDriver, HasColoredCommands):
 
     def __init__(self, *args, **kwargs):
-        self.max_level=kwargs.get('max_level', None)
-        self.bubble=kwargs.get('bubble', None)
+        pass
 
     def emergency(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'EMERGENCY')
+        )
 
     def alert(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'ALERT')
+        )
 
     def critical(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'CRITICAL')
+        )
 
     def error(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'ERROR')
+        )
 
     def warning(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'WARNING')
+        )
 
     def notice(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'NOTICE')
+        )
 
     def info(self, message):
-        pass
+        super().warning(
+            self.get_format(message, 'INFO')
+        )
 
     def debug(self, message):
-        # import pendulum
-        if not self.should_run('debug', self.max_level):
-            return
+        super().warning(
+            self.get_format(message, 'DEBUG')
+        )
 
-        super().warning('{time} - {level} - {message}'.format(
-            time=self.get_time().to_datetime_string(),
-            level='DEBUG',
-            message=message
-        ))
+    def get_format(self, message, level):
+        return '{time} - {level} - {message}'.format(
+                time=self.get_time().to_datetime_string(),
+                level='DEBUG',
+                message=message
+            )

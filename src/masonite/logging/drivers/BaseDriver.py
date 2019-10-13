@@ -21,5 +21,6 @@ class BaseDriver:
         if not max_level:
             return True
 
+        print(level, max_level)
         return self.levels.index(level) <= self.levels.index(max_level)
     
