@@ -9,9 +9,6 @@ from .BaseChannel import BaseChannel
 class SlackChannel(BaseChannel):
 
     def __init__(self, driver=None, path=None):
-        # path = path or config('logging.channels.slack.path')
-        # make_directory(path)
-        # print('path is', path)
         token = config('logging.channels.slack.token')
         channel = config('logging.channels.slack.channel')
         emoji = config('logging.channels.slack.emoji')

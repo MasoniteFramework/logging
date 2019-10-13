@@ -5,3 +5,4 @@ from .SlackChannel import SlackChannel
 from .SyslogChannel import SyslogChannel
 from .StackChannel import StackChannel
 from .BaseChannel import BaseChannel
+from .MultiBaseChannel import MultiBaseChannel

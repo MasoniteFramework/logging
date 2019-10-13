@@ -54,6 +54,6 @@ class LogTerminalDriver(BaseDriver, HasColoredCommands):
     def get_format(self, message, level):
         return '{time} - {level} - {message}'.format(
                 time=self.get_time().to_datetime_string(),
-                level='DEBUG',
+                level=level,
                 message=message
             )
