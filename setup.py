@@ -5,6 +5,8 @@ setup(
     packages=[
         'masonite.logging',
         'masonite.logging.drivers',
+        'masonite.logging.channels',
+        'masonite.logging.managers',
         'masonite.logging.providers',
     ],
     package_dir={'': 'src'},

@@ -14,3 +14,7 @@ class ChannelFactory:
     @classmethod
     def make(cls, channel):
         return cls.channels.get(channel)
+
+    @classmethod
+    def register(cls, channel_dictionary):
+        self.channels.update(channel_dictionary)

@@ -3,3 +3,6 @@ venv
 .vscode
 **/*.pyc
 **/*.DS_Store
+dist
+src/masonite_logging.*
+src/monolog.*
