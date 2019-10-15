@@ -12,7 +12,9 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     version='0.0.1',
-    install_requires=[],
+    install_requires=[
+        "masonite>=2.2.23"
+    ],
     description="Validation Package",
     author="Joseph Mancuso",
     author_email='joe@masoniteproject.com',
