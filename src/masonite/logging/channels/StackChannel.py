@@ -4,12 +4,12 @@ from masonite.helpers.filesystem import make_directory
 import os
 import pendulum
 from .MultiBaseChannel import MultiBaseChannel
-from ..ChannelFactory import ChannelFactory
 
 class StackChannel(MultiBaseChannel):
 
     def __init__(self, channels=[]):
         channels = channels or config('logging.channels.stack.channels')
+        from ..ChannelFactory import ChannelFactory
         self.channels = []
         for channel in channels:
             channel = ChannelFactory.make(channel)()
