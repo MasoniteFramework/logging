@@ -1,5 +1,5 @@
 import unittest
-from src.masonite.logging.channels import DailyChannel
+from src.masonite.logging.channels import DailyChannel, SingleChannel
 import os
 import pendulum
 
@@ -15,4 +15,8 @@ class TestDailyChannel(unittest.TestCase):
     
     def fileExists(self, location):
         self.assertTrue(os.path.exists(location), "location '{}' does not exist".format(location))
+        return self
+
+    def test_channel_can_switch_channels(self):
+        self.assertTrue(isinstance(self.channel.channel('single'), SingleChannel))
         return self

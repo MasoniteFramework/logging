@@ -55,3 +55,6 @@ class BaseChannel:
 
         return self.driver.debug(message, *args, **kwargs)
 
+    def channel(self, channel):
+        from ..ChannelFactory import ChannelFactory
+        return ChannelFactory().make(channel)()

@@ -4,6 +4,7 @@ setup(
     name="masonite-logging",
     packages=[
         'masonite.logging',
+        'masonite.logging.configs',
         'masonite.logging.drivers',
         'masonite.logging.channels',
         'masonite.logging.managers',
