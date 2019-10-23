@@ -27,6 +27,8 @@ class LoggingProvider(ServiceProvider):
         }, tag="config")
 
     def boot(self, logging: LoggingManager):
+        if not config('logging.default'):
+            return
         channel = logging.channel(config('logging.default'))
 
         self.app.bind('Logger', channel)
