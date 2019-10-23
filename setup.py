@@ -12,7 +12,7 @@ setup(
     ],
     package_dir={'': 'src'},
     include_package_data=True,
-    version='1.0.0',
+    version='1.0.1',
     install_requires=[
         "masonite>=2.2.24"
     ],
