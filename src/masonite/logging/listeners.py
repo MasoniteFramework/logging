@@ -9,8 +9,9 @@ class LoggerExceptionListener(BaseExceptionListener):
         self.logger = logger
 
     def handle(self, exception, file, line):
-        self.logger.error("{} in {} on line {}".format(
+        self.logger.error("{} in {} on line {} \n {} \n".format(
             exception.__class__.__name__, 
             file,
-            line
+            line,
+            exception.__str__()
         ))
