@@ -1,5 +1,6 @@
 from masonite.managers import Manager
 
+
 class LoggingManager:
 
     # config = 'LoggingConfig'
