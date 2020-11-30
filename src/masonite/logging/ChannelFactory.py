@@ -17,4 +17,4 @@ class ChannelFactory:
 
     @classmethod
     def register(cls, channel_dictionary):
-        self.channels.update(channel_dictionary)
+        cls.channels.update(channel_dictionary)
