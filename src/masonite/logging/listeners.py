@@ -13,4 +13,4 @@ class LoggerExceptionListener(BaseExceptionListener):
             exception.__class__.__name__, 
             file,
             line,
-        ))
+        ), exc_info=True)
