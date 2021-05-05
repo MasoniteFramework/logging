@@ -6,3 +6,6 @@ venv
 dist
 src/masonite_logging.*
 src/monolog.*
+.python-version
+.idea
+storage/logs/
